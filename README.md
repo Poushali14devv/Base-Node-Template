@@ -56,5 +56,6 @@ Lets take a look inside src folder
   }
 }
 ```
+alternatively  ->go to the `src` folder and run this command:```npx sequelize init```-> with this command we get `config.json`file `migrations`,`seeders` ,`models` folder on its own
 -If setting up developemnet environment then write the name of username of db and in dialect mention whatever db is using for eg mysql,mariadb etc
 -If you are setting up test or prod environment,make sure you also replace the host  with the hosted db url.
