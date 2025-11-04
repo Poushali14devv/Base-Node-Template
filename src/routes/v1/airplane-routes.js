@@ -14,8 +14,12 @@ const express = require('express');
   router.get('/',
     AirplaneController.getAirplanes);
    
-     // POST /api/v1/airplanes:id GET
+  // POST /api/v1/airplanes:id GET
   router.get('/:id',
     AirplaneController.getAirplane);
+
+    // POST /api/v1/airplanes:id DELETE
+  router.delete('/:id',
+    AirplaneController.destroyAirplane);
   
     module.exports = router;

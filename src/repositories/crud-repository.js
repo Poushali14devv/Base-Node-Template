@@ -19,6 +19,9 @@ class CrudRepository{
                         id:data
                     }
                 });
+                if(!response){
+                    throw new AppError('Not able to find the resouce',StatusCodes.NOT_FOUND);
+                }
                 return response;
      }
 
