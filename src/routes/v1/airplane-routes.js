@@ -14,4 +14,8 @@ const express = require('express');
   router.get('/',
     AirplaneController.getAirplanes);
    
-  module.exports = router;
+     // POST /api/v1/airplanes:id GET
+  router.get('/:id',
+    AirplaneController.getAirplane);
+  
+    module.exports = router;
