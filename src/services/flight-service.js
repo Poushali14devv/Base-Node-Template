@@ -44,6 +44,11 @@ async function getAllFlights(query){
             [Op.between]: [query.tripDate, query.tripDate + endingTripTime]
         }
     }
+    if(query.sort) {
+        const params = query.sort.split(',');
+        const sortFilters = params.map((param) => param.split('_'));
+        sortFilter = sortFilters
+    }
     try{
         const flights=await flightRepository.getAllFlights(customFilter);
         return flights;
