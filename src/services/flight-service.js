@@ -28,6 +28,7 @@ async function getAllFlights(query){
      const endingTripTime = " 23:59:00";
     //trips=VAR-DEL
     if(query.trips){
+
         [departureAirportId,arrivalAirportId]=query.trips.split("-");
         customFilter.departureAirportId=departureAirportId;
         customFilter.arrivalAirportId=arrivalAirportId;
@@ -37,6 +38,11 @@ async function getAllFlights(query){
         [minPrice, maxPrice] = query.price.split("-");
         customFilter.price = {
             [Op.between]: [minPrice, ((maxPrice == undefined) ? 20000: maxPrice)]
+        }
+    }
+     if(query.travellers) {
+        customFilter.totalSeats = {
+            [Op.gte]: query.travellers
         }
     }
     if(query.tripDate) {
@@ -56,7 +62,24 @@ async function getAllFlights(query){
         throw new AppError('Cannot fetch data of all the flights',StatusCodes.INTERNAL_SERVER_ERROR);
     }
 } 
+
+
+
+
+async function getFlight(id){
+    try {
+        const flight = await flightRepository.get(id);
+        return flight;
+    } catch(error) {
+        if(error.statusCode == StatusCodes.NOT_FOUND) {
+            throw new AppError('The flight you requested is not present', error.statusCode);
+        }
+        throw new AppError('Cannot fetch data of the flight', StatusCodes.INTERNAL_SERVER_ERROR);
+    }
+
+}
 module.exports = {
     createFlight,
-    getAllFlights
+    getAllFlights,
+    getFlight
 }
